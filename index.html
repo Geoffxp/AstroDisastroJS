@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>AstroDisastro</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            
+            canvas {
+                border: 10px solid white;
+            }
+            body {
+                cursor: crosshair;
+                background-color: black !important;
+                overflow-x: hidden;
+                overflow-y: hidden;
+            }
+            .instructions {
+                width: 100%;
+                position: absolute;
+                color: white;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 25vh;
+                width: 50%;
+            }
+            .hidden {
+                display: none;
+            }
+            .blast {
+                width: 100%;
+                position: absolute;
+                margin-top: 65vh;
+                color: white;
+            }
+
+        </style>
+    </head>
+    <body>
+        <audio id="theme" src="assets/audio/space2.wav" muted=true autoplay=false></audio>
+        <script type="module" src="src/index.js"></script>
+    </body>
+</html>
