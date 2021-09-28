@@ -105,7 +105,6 @@ export default class Game {
                     this.glowUp = true;
                 }
             }
-        }
-        
+        } 
     }
 }

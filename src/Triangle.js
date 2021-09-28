@@ -1,7 +1,6 @@
 import { triangleCollision } from "./Collision.js";
 import Shockwave from "./Shockwave.js";
-import BLAST from "./BLAST.js";
-import Particle from "./Particle.js";
+
 
 function toDegrees(radians) {
     const pi = Math.PI;
@@ -34,6 +33,10 @@ export default class Triangle {
         this.xCenter = (this.topX + this.rightX + this.leftX) / 3;
         this.yCenter = (this.topY + this.rightY + this.leftY) / 3;
         this.health = 25;
+        this.glow = 0;
+        this.glowUp = true;
+        this.glowDown = false;
+        this.pulseCount = 1;
 
     }
     draw(ctx) {
@@ -48,11 +51,15 @@ export default class Triangle {
         ctx.fillStyle = `rgba(255, 255, ${this.power < 25 ? 255 : 150}, ${this.power / 25})`;
         ctx.fill();
         ctx.stroke();
-        ctx.fillStyle = `rgba(255, 255, 150, ${this.power / 100})`;
+        ctx.fillStyle = `rgba(${255 - this.power}, 255, ${125 + this.power}, ${(this.power <= 25) ? this.power / 100 : 0.25})`;
         ctx.beginPath();
         ctx.arc(this.xCenter, this.yCenter, 60, 0, 2 * Math.PI);
         ctx.closePath();
         ctx.fill();
+        this.pulse()
+        ctx.fillStyle = `rgba(255, 50, 50, ${this.glow})`;
+        ctx.fillRect(0, 0, this.game.width, this.game.height);
+        
         
     }
     update(balls, particles, ships) {
@@ -77,6 +84,7 @@ export default class Triangle {
             return 1;
         }
         if (triangleCollision(ships, this, particles)) {
+            this.pulseCount = 0;
             if (this.power > 0) this.power -= 3;
             else {
                 this.power = 0;
@@ -100,6 +108,21 @@ export default class Triangle {
             this.power -= 25;
             this.game.pulseCount = 0;
         }
+    }
+
+    pulse() {
+        if (this.pulseCount < 1) {
+            if (this.glowUp) {
+                this.glow += 0.02;
+                if (this.glow > 0.2) this.glowUp = false;
+            } else {
+                this.glow -= 0.02;
+                if (this.glow < 0) {
+                    this.pulseCount++
+                    this.glowUp = true;
+                }
+            }
+        } 
     }
 
 }

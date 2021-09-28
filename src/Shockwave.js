@@ -13,12 +13,8 @@ export default class Shockwave {
         if (this.size >= this.game.width){ 
             this.size = 0;
             this.remove = true;
-            this.game.balls.forEach(ball => {
-                ball.shocked = false;
-                console.log(ball.shocked)});
-            this.game.ships.forEach(ship => {
-                ship.shocked = false;
-                console.log(ship.shocked)});
+            this.game.balls.forEach(ball => ball.shocked = false);
+            this.game.ships.forEach(ship => ship.shocked = false);
         }
         if (shockwaveCollision(this, this.game.balls, this.game.particles)) return 1;
         return 0;
